@@ -15,13 +15,13 @@ def retMnist(numOfClients):
 
     # setup data
     dataset_train = tv.datasets.MNIST(
-        './data', 
+        '../data/mnist', 
         train=True, 
         download=True,
         transform=transform
     )
     dataset_test = tv.datasets.MNIST(
-        './data', 
+        '../data/mnist', 
         train=False, 
         transform=transform
     )
