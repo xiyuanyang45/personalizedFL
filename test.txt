@@ -1,0 +1,196 @@
+Client: 0 
+Train Epoch: 1 
+loss:[2.329, 0.52, 0.585]
+Client: 0
+Test set: Average loss: 0.2974, Accuracy: 9132/10000 (91%)
+
+Client: 1 
+Train Epoch: 1 
+loss:[2.323, 0.572, 0.223]
+Client: 1
+Test set: Average loss: 0.3198, Accuracy: 8999/10000 (90%)
+
+Client: 2 
+Train Epoch: 1 
+loss:[2.29, 0.411, 0.455]
+Client: 2
+Test set: Average loss: 0.3095, Accuracy: 9075/10000 (91%)
+
+Client: 3 
+Train Epoch: 1 
+loss:[2.303, 0.432, 0.282]
+Client: 3
+Test set: Average loss: 0.2968, Accuracy: 9144/10000 (91%)
+
+odict_keys(['conv1.weight', 'conv1.bias', 'conv2.weight', 'conv2.bias', 'fc1.weight', 'fc1.bias', 'fc2.weight', 'fc2.bias'])
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:3.3603408336639404
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:1.038901686668396
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:4.703031539916992
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.24876518547534943
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:6.634335041046143
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.0702962577342987
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:2.0777359008789062
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.1540658175945282
+Client: 0 
+Train Epoch: 2 
+loss:[0.574, 0.198, 0.275]
+Client: 0
+Test set: Average loss: 0.2344, Accuracy: 9313/10000 (93%)
+
+Client: 1 
+Train Epoch: 2 
+loss:[0.405, 0.418, 0.609]
+Client: 1
+Test set: Average loss: 0.2215, Accuracy: 9333/10000 (93%)
+
+Client: 2 
+Train Epoch: 2 
+loss:[0.507, 0.252, 0.365]
+Client: 2
+Test set: Average loss: 0.2398, Accuracy: 9266/10000 (93%)
+
+Client: 3 
+Train Epoch: 2 
+loss:[0.278, 0.327, 0.2]
+Client: 3
+Test set: Average loss: 0.2411, Accuracy: 9277/10000 (93%)
+
+odict_keys(['conv1.weight', 'conv1.bias', 'conv2.weight', 'conv2.bias', 'fc1.weight', 'fc1.bias', 'fc2.weight', 'fc2.bias'])
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:3.400911331176758
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:1.0382241010665894
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:4.732229709625244
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.2498352825641632
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:6.685264587402344
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.07035624980926514
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:2.152435302734375
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.154460147023201
+Client: 0 
+Train Epoch: 3 
+loss:[0.32, 0.498, 0.247]
+Client: 0
+Test set: Average loss: 0.1960, Accuracy: 9421/10000 (94%)
+
+Client: 1 
+Train Epoch: 3 
+loss:[0.472, 0.38, 0.451]
+Client: 1
+Test set: Average loss: 0.1893, Accuracy: 9459/10000 (95%)
+
+Client: 2 
+Train Epoch: 3 
+loss:[0.327, 0.186, 0.411]
+Client: 2
+Test set: Average loss: 0.2029, Accuracy: 9398/10000 (94%)
+
+Client: 3 
+Train Epoch: 3 
+loss:[0.227, 0.249, 0.366]
+Client: 3
+Test set: Average loss: 0.2068, Accuracy: 9355/10000 (94%)
+
+odict_keys(['conv1.weight', 'conv1.bias', 'conv2.weight', 'conv2.bias', 'fc1.weight', 'fc1.bias', 'fc2.weight', 'fc2.bias'])
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:3.430684804916382
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:1.038223147392273
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:4.7538981437683105
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.2510809302330017
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:6.727092266082764
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.07045973837375641
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:2.2079970836639404
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.1537887305021286
+Client: 0 
+Train Epoch: 4 
+loss:[0.21, 0.183, 0.343]
+Client: 0
+Test set: Average loss: 0.1644, Accuracy: 9498/10000 (95%)
+
+Client: 1 
+Train Epoch: 4 
+loss:[0.252, 0.29, 0.192]
+Client: 1
+Test set: Average loss: 0.1700, Accuracy: 9498/10000 (95%)
+
+Client: 2 
+Train Epoch: 4 
+loss:[0.316, 0.214, 0.365]
+Client: 2
+Test set: Average loss: 0.1700, Accuracy: 9527/10000 (95%)
+
+Client: 3 
+Train Epoch: 4 
+loss:[0.27, 0.364, 0.187]
+Client: 3
+Test set: Average loss: 0.1735, Accuracy: 9474/10000 (95%)
+
+odict_keys(['conv1.weight', 'conv1.bias', 'conv2.weight', 'conv2.bias', 'fc1.weight', 'fc1.bias', 'fc2.weight', 'fc2.bias'])
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:3.4570083618164062
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:1.0383342504501343
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:4.773167610168457
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.2519981563091278
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:6.764554977416992
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.07067624479532242
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:2.256927490234375
+-----------------------------------------------------------
+<class 'torch.Tensor'>
+norm:0.15371409058570862
