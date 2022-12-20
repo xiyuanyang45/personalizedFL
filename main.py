@@ -132,7 +132,6 @@ def main():
                 test_loader, 
                 clientIdx
             )
-            stateDictList.append(modelList[clientIdx].state_dict())
             gradList.append(grad)
 
         if epoch == 1:
@@ -147,8 +146,8 @@ def main():
             globalModel.load_state_dict(globalDict)
             gradList = []
 
-        print("ATTENTION________________global test")
-        test(globalModel, test_loader, "server")
+        # print("ATTENTION________________global test")
+        # test(globalModel, test_loader, "server")
 
 if __name__ == '__main__':
     main()

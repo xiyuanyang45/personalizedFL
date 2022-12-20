@@ -1,19 +1,8 @@
 import copy
 import torch
+import numpy as np
 from options import args_parser
 args = args_parser()
-
-# def FedAvg(stateDictList):
-#     wAvg = copy.deepcopy(stateDictList[0])
-
-#     for wIdx in wAvg.keys():
-#         for clientIdx in range(1, args.numOfClients):
-#             print(wAvg.keys())
-#             print(range(1, args.numOfClients))
-#             wAvg[wIdx] += (stateDictList[clientIdx])[wIdx]
-
-#         wAvg[wIdx] = torch.div(wAvg[wIdx], args.numOfClients)
-#     return wAvg
 
 def FedAvg(w):
     w_avg = copy.deepcopy(w[0])
@@ -28,3 +17,13 @@ def FedAvg(w):
     #     print(type(x))
     #     print(f'norm:{x.norm()}')
     return w_avg
+
+def Clip(gradList):
+    normList, sensitivityList = [], []
+    for key in gradList[0].keys():
+        for grad in gradList:
+            normList.append(grad[key].norm())
+        sensitivityList.append(np.median(normList))
+        normList = []
+    
+
