@@ -5,7 +5,7 @@ def args_parser():
 
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
 
-    parser.add_argument('--epochs', type=int, default=2, metavar='N',
+    parser.add_argument('--epochs', type=int, default=4,
                         help='number of epochs to train (default: 14)')
 
     parser.add_argument('--batch-size', type=int, default=128, metavar='N',

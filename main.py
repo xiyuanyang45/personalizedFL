@@ -113,10 +113,9 @@ def main():
     selectedClients = max(1, int(args.numOfClients * args.frac))
 
     globalModel = Net().to(device)
+    globalDict = globalModel.state_dict()
 
     for epoch in range(1, args.epochs + 1):
-        # train(args, model, train_loader, optimizer, engine, epoch, epsilonPerClient)
-
         for clientIdx in range(args.numOfClients):
             grad = train(
                 args, 
@@ -136,10 +135,20 @@ def main():
             stateDictList.append(modelList[clientIdx].state_dict())
             gradList.append(grad)
 
-        print (gradList)
-        wAvg = FedAvg(stateDictList)
-        stateDictList = []
-        globalModel.load_state_dict(wAvg)
+        if epoch == 1:
+            for clientIdx in range(args.numOfClients):
+                stateDictList.append(modelList[clientIdx].state_dict())
+            wAvg = FedAvg(stateDictList)
+            globalModel.load_state_dict(wAvg)
+        else:
+            gradAvg = FedAvg(gradList)
+            for key in gradAvg.keys():
+                globalDict[key] = globalDict[key] + gradAvg[key]
+            globalModel.load_state_dict(globalDict)
+            gradList = []
+
+        print("ATTENTION________________global test")
+        test(globalModel, test_loader, "server")
 
 if __name__ == '__main__':
     main()
