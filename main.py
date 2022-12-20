@@ -11,7 +11,7 @@ from dataSetup import retMnist
 # from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from options import args_parser
-from FedAvg import FedAvg
+from func import FedAvg, Clip
 from net import Net
 from opacus.accountants.rdp import RDPAccountant
 import copy
@@ -133,6 +133,8 @@ def main():
                 clientIdx
             )
             gradList.append(grad)
+
+        Clip(gradList)
 
         if epoch == 1:
             for clientIdx in range(args.numOfClients):
