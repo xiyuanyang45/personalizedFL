@@ -52,7 +52,9 @@ def train(args, model, train_loader, optimizer, epoch, epsilonPerClient, clientI
 
     finalModel = copy.deepcopy(model)
     finalDict = finalModel.state_dict()
-    
+
+    for key in originalDict.keys():
+        finalDict[key] = finalDict[key] - originalDict[key]
 
     print(
         f"Client: {clientIdx} \n"
@@ -62,7 +64,7 @@ def train(args, model, train_loader, optimizer, epoch, epsilonPerClient, clientI
 
     
 
-    return 0
+    return finalDict
 
 def test(model, test_loader, clientIdx):
     model.eval()
@@ -90,7 +92,7 @@ def main():
     
     epsilonPerClient = args.epsilonInTotal/args.numOfClients
     train_loader_list, test_loader = retMnist(args.numOfClients)
-    modelList, optimizerList, stateDictList = [], [], []
+    modelList, optimizerList, stateDictList, gradList = [], [], [], []
     for clientIdx in range(args.numOfClients):
         modelList.append(
             Net().to(device)
@@ -107,6 +109,7 @@ def main():
     #     noise_multiplier=1, 
     #     max_grad_norm=1, 
     # )
+
     selectedClients = max(1, int(args.numOfClients * args.frac))
 
     globalModel = Net().to(device)
@@ -115,7 +118,7 @@ def main():
         # train(args, model, train_loader, optimizer, engine, epoch, epsilonPerClient)
 
         for clientIdx in range(args.numOfClients):
-            train(
+            grad = train(
                 args, 
                 modelList[clientIdx], 
                 train_loader_list[clientIdx], 
@@ -131,7 +134,9 @@ def main():
                 clientIdx
             )
             stateDictList.append(modelList[clientIdx].state_dict())
+            gradList.append(grad)
 
+        print (gradList)
         wAvg = FedAvg(stateDictList)
         stateDictList = []
         globalModel.load_state_dict(wAvg)

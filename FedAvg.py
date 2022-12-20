@@ -23,7 +23,6 @@ def FedAvg(w):
             w_avg[k] += w[i][k]
         w_avg[k] = torch.div(w_avg[k], args.numOfClients)
 
-    print(w_avg.keys())
     for x in w_avg.values():
         print('-----------------------------------------------------------')
         print(type(x))
