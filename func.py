@@ -29,14 +29,18 @@ def median(listIn):
 
 def Clip(gradList):
     normList, sensitivityList = [], []
+    # generate sensitivity list
+    # sensitivity = median(norm)
     for key in gradList[0].keys():
         for grad in gradList:
             normList.append(grad[key].norm())
         sensitivityList.append(median(normList))
         normList = []
+    print(sensitivityList)
     for key, idx in zip(gradList[0].keys(), range(len(sensitivityList))):
-        print(key)
-        print(idx)
         for grad in gradList:
-            print()
-
+            S = sensitivityList[idx]
+            bound = max(1, grad[key].norm()/S)
+            print(bound)
+            grad[key] = grad[key]/bound
+    return sensitivityList, gradList
