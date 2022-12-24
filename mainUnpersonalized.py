@@ -108,12 +108,6 @@ def main():
     globalDict = globalModel.state_dict()
     for key in globalDict.keys():
         keyList.append(key)
-    globalParamList = []
-
-    for idx in range(4):
-        key =  keyList[-1-idx]
-        globalParamList.append(globalDict[key])
-    print(globalParamList)
 
     # for epoch in tqdm(range(1, args.epochs + 1)):
     for epoch in tqdm(range(1, args.epochs + 1)):

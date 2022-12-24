@@ -22,9 +22,8 @@ def args_parser():
                         help="GPU ID, -1 for CPU")
     parser.add_argument('--numOfClients', type=int, default=4)
     parser.add_argument('--frac', type=float, default=0.4)
-    parser.add_argument('--epsilon', type = float, default=0.5)
     parser.add_argument('--delta', type=float, default=1e-5)
-    parser.add_argument('--sigma', type=float, default=0.1)
+    parser.add_argument('--sigma', type=float, default=0.001)
 
     args = parser.parse_args()
 
