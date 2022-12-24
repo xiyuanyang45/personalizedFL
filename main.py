@@ -134,14 +134,13 @@ def main():
             )
             gradList.append(grad)
 
-        Clip(gradList)
-
         if epoch == 1:
             for clientIdx in range(args.numOfClients):
                 stateDictList.append(modelList[clientIdx].state_dict())
             wAvg = FedAvg(stateDictList)
             globalModel.load_state_dict(wAvg)
         else:
+            sensitivityList, gradList = Clip(gradList)
             gradAvg = FedAvg(gradList)
             for key in gradAvg.keys():
                 globalDict[key] = globalDict[key] + gradAvg[key]

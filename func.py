@@ -36,11 +36,10 @@ def Clip(gradList):
             normList.append(grad[key].norm())
         sensitivityList.append(median(normList))
         normList = []
-    print(sensitivityList)
     for key, idx in zip(gradList[0].keys(), range(len(sensitivityList))):
         for grad in gradList:
             S = sensitivityList[idx]
             bound = max(1, grad[key].norm()/S)
-            print(bound)
             grad[key] = grad[key]/bound
+    print(sensitivityList)
     return sensitivityList, gradList
