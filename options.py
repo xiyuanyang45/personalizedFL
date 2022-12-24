@@ -5,7 +5,7 @@ def args_parser():
 
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
 
-    parser.add_argument('--epochs', type=int, default=4,
+    parser.add_argument('--epochs', type=int, default=2,
                         help='number of epochs to train (default: 14)')
 
     parser.add_argument('--batch-size', type=int, default=128, metavar='N',
@@ -22,14 +22,12 @@ def args_parser():
                         help='how many batches to wait before logging training status')
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
-    parser.add_argument('--delta', default=1e-5, 
-                        help="delta in dp")
     parser.add_argument('--gpu', type=int, default=0, 
                         help="GPU ID, -1 for CPU")
-    parser.add_argument('--epsilonInTotal', type=float, default=2)
-
     parser.add_argument('--numOfClients', type=int, default=4)
     parser.add_argument('--frac', type=float, default=0.4)
+    parser.add_argument('--epsilon', type = float, default=4)
+    parser.add_argument('--delta', type=float, default=1e-5)
 
     args = parser.parse_args()
 

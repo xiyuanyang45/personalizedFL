@@ -11,7 +11,7 @@ from dataSetup import retMnist
 # from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from options import args_parser
-from func import FedAvg, Clip
+from func import FedAvg, Clip, addGaussian
 from net import Net
 from opacus.accountants.rdp import RDPAccountant
 import copy
@@ -26,7 +26,7 @@ elif(torch.backends.mps.is_available()):
 else:
     device = "cpu"
 
-def train(args, model, train_loader, optimizer, epoch, epsilonPerClient, clientIdx, globalModel):
+def train(args, model, train_loader, optimizer, epoch, clientIdx, globalModel):
     model.train()
 
     originalModel = copy.deepcopy(globalModel)
@@ -38,7 +38,8 @@ def train(args, model, train_loader, optimizer, epoch, epsilonPerClient, clientI
 
     model.load_state_dict(originalDict)
 
-    for batch_idx, (data, target) in enumerate(tqdm(train_loader)):
+    # for batch_idx, (data, target) in enumerate(tqdm(train_loader)):
+    for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
@@ -61,8 +62,6 @@ def train(args, model, train_loader, optimizer, epoch, epsilonPerClient, clientI
         f"Train Epoch: {epoch} \n"
         f"loss:{losses}"
     )
-
-    
 
     return finalDict
 
@@ -90,7 +89,6 @@ def test(model, test_loader, clientIdx):
 
 def main():
     
-    epsilonPerClient = args.epsilonInTotal/args.numOfClients
     train_loader_list, test_loader = retMnist(args.numOfClients)
     modelList, optimizerList, stateDictList, gradList = [], [], [], []
     for clientIdx in range(args.numOfClients):
@@ -115,7 +113,9 @@ def main():
     globalModel = Net().to(device)
     globalDict = globalModel.state_dict()
 
-    for epoch in range(1, args.epochs + 1):
+    # for epoch in tqdm(range(1, args.epochs + 1)):
+    for epoch in tqdm(range(1, args.epochs + 1)):
+        print("------------------------------------------------------")
         for clientIdx in range(args.numOfClients):
             grad = train(
                 args, 
@@ -123,7 +123,6 @@ def main():
                 train_loader_list[clientIdx], 
                 optimizerList[clientIdx], 
                 epoch, 
-                epsilonPerClient, 
                 clientIdx, 
                 globalModel
             )
@@ -141,6 +140,7 @@ def main():
             globalModel.load_state_dict(wAvg)
         else:
             sensitivityList, gradList = Clip(gradList)
+            addGaussian(sensitivityList, gradList, args.epsilon, args.delta)
             gradAvg = FedAvg(gradList)
             for key in gradAvg.keys():
                 globalDict[key] = globalDict[key] + gradAvg[key]

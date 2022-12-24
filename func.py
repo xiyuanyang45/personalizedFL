@@ -41,5 +41,12 @@ def Clip(gradList):
             S = sensitivityList[idx]
             bound = max(1, grad[key].norm()/S)
             grad[key] = grad[key]/bound
-    print(sensitivityList)
     return sensitivityList, gradList
+
+
+def addGaussian(sensitivityList, gradList, epsilon, delta):
+    print("yes!!!!!!!!!!!!")
+    for key in gradList[0].keys():
+        for grad in gradList:
+            pass
+
