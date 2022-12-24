@@ -140,7 +140,7 @@ def main():
             globalModel.load_state_dict(wAvg)
         else:
             sensitivityList, gradList = Clip(gradList)
-            addGaussian(sensitivityList, gradList, args.epsilon, args.delta)
+            gradList = addGaussian(sensitivityList, gradList, args.sigma, device)
             gradAvg = FedAvg(gradList)
             for key in gradAvg.keys():
                 globalDict[key] = globalDict[key] + gradAvg[key]

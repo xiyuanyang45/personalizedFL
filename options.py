@@ -16,18 +16,15 @@ def args_parser():
                         help='learning rate (default: 1.0)')
     parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
                         help='Learning rate step gamma (default: 0.7)')
-    parser.add_argument('--dry', action='store_true', default=False,
-                        help='quickly check a single pass')
     parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                         help='how many batches to wait before logging training status')
-    parser.add_argument('--save-model', action='store_true', default=False,
-                        help='For Saving the current Model')
     parser.add_argument('--gpu', type=int, default=0, 
                         help="GPU ID, -1 for CPU")
     parser.add_argument('--numOfClients', type=int, default=4)
     parser.add_argument('--frac', type=float, default=0.4)
-    parser.add_argument('--epsilon', type = float, default=4)
+    parser.add_argument('--epsilon', type = float, default=0.5)
     parser.add_argument('--delta', type=float, default=1e-5)
+    parser.add_argument('--sigma', type=float, default=0.1)
 
     args = parser.parse_args()
 

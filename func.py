@@ -1,5 +1,6 @@
 import copy
 import torch
+import math
 from options import args_parser
 args = args_parser()
 
@@ -44,9 +45,11 @@ def Clip(gradList):
     return sensitivityList, gradList
 
 
-def addGaussian(sensitivityList, gradList, epsilon, delta):
-    print("yes!!!!!!!!!!!!")
-    for key in gradList[0].keys():
+def addGaussian(sensitivityList, gradList, sigma, device):
+    for key, idx in zip(gradList[0].keys(), range(len(sensitivityList))):
         for grad in gradList:
-            pass
+            noise = torch.randn(grad[key].shape) * (float(sensitivityList[idx]) * sigma)
+            noise = noise.to(device)
+            grad[key] = grad[key] + noise
+    return gradList
 
