@@ -17,7 +17,7 @@ def args_parser():
     parser.add_argument('--frac', type=float, default=0.4)
     parser.add_argument('--delta', type=float, default=1e-5)
     parser.add_argument('--sigma', type=float, default=0.001)
-    parser.add_argument('--layers', type=int, default=2)
+    parser.add_argument('--layers', type=int, default=4)
 
     args = parser.parse_args()
 

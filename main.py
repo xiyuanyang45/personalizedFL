@@ -7,7 +7,7 @@ import torchvision as tv
 from tqdm import tqdm
 from opacus import PrivacyEngine
 import time
-from dataSetup import retMnist
+from dataSetup import retMnist, retCifar10
 # from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from options import args_parser
@@ -95,7 +95,9 @@ def test(model, test_loader, clientIdx):
 
 def main():
     
-    train_loader_list, test_loader = retMnist(args.numOfClients)
+    train_loader_list, test_loader = retCifar10(args.numOfClients)
+    # train_loader_list, test_loader = retMnist(args.numOfClients)
+
     modelList, optimizerList, gradList = [], [], []
 
     keyList = []
@@ -105,7 +107,8 @@ def main():
             Net().to(device)
         )
         optimizerList.append(
-            torch.optim.SGD(modelList[clientIdx].parameters(), lr=args.lr)
+            # torch.optim.SGD(modelList[clientIdx].parameters(), lr=args.lr)
+            torch.optim.Adam(modelList[clientIdx].parameters(), lr=args.lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
         )
 
     globalModel = Net().to(device)
