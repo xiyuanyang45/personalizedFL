@@ -114,7 +114,7 @@ def main():
     for key in globalDict.keys():
         keyList.append(key)
     keyToAlign = []
-    for idx in range(2 * args.layersToAlign):
+    for idx in range(2 * args.layers):
         key =  keyList[-1-idx]
         keyToAlign.append(key)
     print(f'key to align : {keyToAlign}')
