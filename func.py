@@ -4,10 +4,11 @@ import math
 from options import args_parser
 args = args_parser()
 
-def FedAvg(w):
+def FedAvg(w, keyToAlign):
     w_avg = copy.deepcopy(w[0])
     # print(w_avg.keys())
-    for k in w_avg.keys():
+    # print(keyToAlign)
+    for k in keyToAlign:
         for i in range(1, args.numOfClients):
             w_avg[k] += w[i][k]
         w_avg[k] = torch.div(w_avg[k], args.numOfClients)

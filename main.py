@@ -28,17 +28,22 @@ else:
     device = "cpu"
 
 
-def train(args, model, train_loader, optimizer, epoch, clientIdx, globalModel):
-    model.train()
+def personalizedTrain(args, model, train_loader, optimizer, epoch, clientIdx, globalModel, keyToAlign):
 
-    originalModel = copy.deepcopy(globalModel)
-    originalDict = originalModel.state_dict()
+    globalModel = copy.deepcopy(globalModel)
+    globalDict = globalModel.state_dict()
     # priv = RDPAccountant()
 
+    # model.load_state_dict(originalDict)
+
+    modelDict = model.state_dict()
+    for key in keyToAlign:
+        modelDict[key] = globalDict[key]
+    model.load_state_dict(modelDict)
+
+    model.train()
     losses = []
     loss_func = nn.CrossEntropyLoss()
-
-    model.load_state_dict(originalDict)
 
     # for batch_idx, (data, target) in enumerate(tqdm(train_loader)):
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -53,11 +58,10 @@ def train(args, model, train_loader, optimizer, epoch, clientIdx, globalModel):
             tmp = round(loss.item(), 3)
             losses.append(tmp)
 
-    finalModel = copy.deepcopy(model)
-    finalDict = finalModel.state_dict()
+    finalDict = model.state_dict()
 
-    for key in originalDict.keys():
-        finalDict[key] = finalDict[key] - originalDict[key]
+    for key in globalDict.keys():
+        finalDict[key] = finalDict[key] - globalDict[key]
 
     print(
         f"Client: {clientIdx} \n"
@@ -106,27 +110,28 @@ def main():
 
     globalModel = Net().to(device)
     globalDict = globalModel.state_dict()
+
     for key in globalDict.keys():
         keyList.append(key)
-    globalParamList = []
-
-    for idx in range(4):
+    keyToAlign = []
+    for idx in range(2 * args.layersToAlign):
         key =  keyList[-1-idx]
-        globalParamList.append(globalDict[key])
-    print(globalParamList)
+        keyToAlign.append(key)
+    print(f'key to align : {keyToAlign}')
 
     # for epoch in tqdm(range(1, args.epochs + 1)):
     for epoch in tqdm(range(1, args.epochs + 1)):
         print("------------------------------------------------------")
         for clientIdx in range(args.numOfClients):
-            grad = train(
+            grad = personalizedTrain(
                 args, 
                 modelList[clientIdx], 
                 train_loader_list[clientIdx], 
                 optimizerList[clientIdx], 
                 epoch, 
                 clientIdx, 
-                globalModel
+                globalModel, 
+                keyToAlign
             )
             test(
                 modelList[clientIdx], 
@@ -137,7 +142,7 @@ def main():
 
         sensitivityList, gradList = Clip(gradList)
         gradList = addGaussian(sensitivityList, gradList, args.sigma, device)
-        gradAvg = FedAvg(gradList)
+        gradAvg = FedAvg(gradList, keyToAlign)
         for key in gradAvg.keys():
             globalDict[key] = globalDict[key] + gradAvg[key]
         globalModel.load_state_dict(globalDict)
