@@ -1,2 +1,3 @@
 # personalizedFL
-## undone
+undone
+just a little exercise
